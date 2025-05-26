@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur de Prix - Dashboard IProspect</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            color: #FFFFFF;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #3EC780;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(62, 199, 128, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #FFFFFF;
+            opacity: 0.8;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(62, 199, 128, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: #3EC780;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+            font-size: 1rem;
+        }
+
+        .form-group input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+            margin-bottom: 10px;
+        }
+
+        .form-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3EC780;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(62, 199, 128, 0.5);
+        }
+
+        .form-group input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3EC780;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 10px rgba(62, 199, 128, 0.5);
+        }
+
+        .range-value {
+            display: inline-block;
+            background: #3EC780;
+            color: #0F0F0F;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #3EC780;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .results-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(62, 199, 128, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .results-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: #3EC780;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 2px solid #3EC780;
+        }
+
+        .result-label {
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+
+        .result-value {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #3EC780;
+        }
+
+        .result-total .result-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .result-total .result-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-section,
+            .results-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Simulateur de Prix</h1>
+            <p>Calculez le coût de votre dashboard personnalisé</p>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <h2>Configuration</h2>
+
+                <div class="form-group">
+                    <label for="sources">Nombre de sources différentes</label>
+                    <input type="range" id="sources" min="1" max="10" value="1">
+                    <span class="range-value" id="sourcesValue">1</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="comptes">Nombre de comptes différents</label>
+                    <input type="range" id="comptes" min="1" max="10" value="1">
+                    <span class="range-value" id="comptesValue">1</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="leviers">Nombre de leviers différents</label>
+                    <input type="range" id="leviers" min="1" max="10" value="1">
+                    <span class="range-value" id="leviersValue">1</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Nomenclature</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="nomenclature" checked>
+                        <label for="nomenclature">Nomenclature standard</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2>Estimation</h2>
+
+                <div class="result-item">
+                    <div class="result-label">Nombre de flexpoints</div>
+                    <div class="result-value" id="flexpoints">50</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Coût flexpoints par an</div>
+                    <div class="result-value" id="coutFlexpoints">960 €</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Coût main d'œuvre</div>
+                    <div class="result-value">4 250 €</div>
+                </div>
+
+                <div class="result-item">
+                    <div class="result-label">Coût stockage</div>
+                    <div class="result-value">1 000 €</div>
+                </div>
+
+                <div class="result-item" id="surtaxeRow" style="display: none;">
+                    <div class="result-label">Surcoût nomenclature</div>
+                    <div class="result-value">850 €</div>
+                </div>
+
+                <div class="result-item result-total">
+                    <div class="result-label">COÛT TOTAL</div>
+                    <div class="result-value" id="coutTotal">6 210 €</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Récupération des éléments
+        const sourcesSlider = document.getElementById('sources');
+        const comptesSlider = document.getElementById('comptes');
+        const leviersSlider = document.getElementById('leviers');
+        const nomenclatureCheckbox = document.getElementById('nomenclature');
+
+        const sourcesValue = document.getElementById('sourcesValue');
+        const comptesValue = document.getElementById('comptesValue');
+        const leviersValue = document.getElementById('leviersValue');
+
+        const flexpointsDisplay = document.getElementById('flexpoints');
+        const coutFlexpointsDisplay = document.getElementById('coutFlexpoints');
+        const coutTotalDisplay = document.getElementById('coutTotal');
+        const surtaxeRow = document.getElementById('surtaxeRow');
+
+        // Fonction de calcul
+        function calculerPrix() {
+            const sources = parseInt(sourcesSlider.value);
+            const comptes = parseInt(comptesSlider.value);
+            const leviers = parseInt(leviersSlider.value);
+            const nomenclatureStandard = nomenclatureCheckbox.checked;
+
+            // Calculs
+            const flexpoints = 50 * sources * comptes * leviers;
+            const coutFlexpointsAn = flexpoints * 1.6 * 12;
+            const coutMainOeuvre = 850 * 5;
+            const coutStockage = 1000;
+            const surtaxeNomenclature = nomenclatureStandard ? 0 : 850;
+            const coutTotal = coutFlexpointsAn + coutMainOeuvre + coutStockage + surtaxeNomenclature;
+
+            // Mise à jour de l'affichage
+            flexpointsDisplay.textContent = flexpoints.toLocaleString('fr-FR');
+            coutFlexpointsDisplay.textContent = coutFlexpointsAn.toLocaleString('fr-FR') + ' €';
+            coutTotalDisplay.textContent = coutTotal.toLocaleString('fr-FR') + ' €';
+
+            // Affichage conditionnel de la surtaxe
+            if (!nomenclatureStandard) {
+                surtaxeRow.style.display = 'flex';
+            } else {
+                surtaxeRow.style.display = 'none';
+            }
+        }
+
+        // Event listeners pour les sliders
+        sourcesSlider.addEventListener('input', function () {
+            sourcesValue.textContent = this.value;
+            calculerPrix();
+        });
+
+        comptesSlider.addEventListener('input', function () {
+            comptesValue.textContent = this.value;
+            calculerPrix();
+        });
+
+        leviersSlider.addEventListener('input', function () {
+            leviersValue.textContent = this.value;
+            calculerPrix();
+        });
+
+        nomenclatureCheckbox.addEventListener('change', calculerPrix);
+
+        // Calcul initial
+        calculerPrix();
+    </script>
+</body>
+
+</html>
